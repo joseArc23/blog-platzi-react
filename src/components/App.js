@@ -1,50 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
-const App = () => {
-  const [users, setUsers] = useState({ loading: true, data: [], error: null})
+import Menu from './Menu'
+import Users from './users'
 
-  useEffect(() => {
-    setUsers({ loading: true, error: null})
-    const fetchData = async () => {
-      try {
-        const response =  await axios.get('https://jsonplaceholder.typicode.com/users')
-        console.log(response.data)
-        setUsers({ loading: false, data: response.data })
-      } catch(error) {
-        setUsers({ loading: false, error: error})
-      }
-    }
-    fetchData()
-  }, [])
+const Tasks = () => (<div>Taresa</div>)
 
+const App = () => (
+  <Router>
+      <Menu />
+      <div className="margin">
+        <Route exact path="/" component={Users} />
+        <Route exact path="/tareas" component={Tasks} />
+      </div>
+  </Router>
+)
 
-  if (users.loading) {
-    return <h1>Loading...</h1>
-  }
-
-  return (
-    <div className="margin">
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Enlace</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.data.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.website}</td>
-            </tr> 
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
-}
-
-export default App;
+export default App
