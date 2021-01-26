@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const Users = () => {
-  const [users, setUsers] = useState({ loading: true, data: [], error: null})
+import { connect } from 'react-redux'
 
-  useEffect(() => {
-    setUsers({ loading: true, error: null})
-    const fetchData = async () => {
-      try {
-        const response =  await axios.get('https://jsonplaceholder.typicode.com/users')
-        setUsers({ loading: false, data: response.data })
-      } catch(error) {
-        setUsers({ loading: false, error: error})
-      }
-    }
-    fetchData()
-  }, [])
+const Users = (props) => {
+  const {users, loading, error} = props.data
+  // const [users, setUsers] = useState({ loading: true, data: [], error: null})
+
+  // useEffect(() => {
+  //   setUsers({ loading: true, error: null})
+  //   const fetchData = async () => {
+  //     try {
+  //       const response =  await axios.get('https://jsonplaceholder.typicode.com/users')
+  //       setUsers({ loading: false, data: response.data })
+  //     } catch(error) {
+  //       setUsers({ loading: false, error: error})
+  //     }
+  //   }
+  //   fetchData()
+  // }, [])
 
 
-  if (users.loading) {
-    return <h1>Loading...</h1>
-  }
+  // if (loading) {
+  //   return <h1>Loading...</h1>
+  // }
 
+  console.log(props)
   return (
     <div>
       <table className="table">
@@ -33,7 +37,7 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users.data.map(user => (
+          {users.map(user => (
             <tr key={user.id}>
               <td>{user.name}</td>
               <td>{user.email}</td>
@@ -46,4 +50,10 @@ const Users = () => {
   )
 }
 
-export default Users;
+const mapStateToProps = state => {
+  return {
+    data: state.usersReducer
+  }
+}
+
+export default connect(mapStateToProps, null)(Users);

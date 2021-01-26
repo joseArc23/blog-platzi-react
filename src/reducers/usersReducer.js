@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
-  users: []
+  users: [],
+  loading: true,
+  error: null
 }
 
 export default (state = INITIAL_STATE, action) => {
