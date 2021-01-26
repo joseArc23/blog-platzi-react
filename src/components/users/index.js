@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import * as usersActions  from '../../actions/usersActions'
 import { connect } from 'react-redux'
@@ -9,28 +8,13 @@ const Users = (props) => {
   // const [users, setUsers] = useState({ loading: true, data: [], error: null})
 
   useEffect(() => {
-
-    console.log(props)
     props.traerTodos()
-    // setUsers({ loading: true, error: null})
-    // const fetchData = async () => {
-    //   try {
-    //     const response =  await axios.get('https://jsonplaceholder.typicode.com/users')
-    //     setUsers({ loading: false, data: response.data })
-    //   } catch(error) {
-    //     setUsers({ loading: false, error: error})
-    //   }
-    // }
-    // fetchData()
-
   }, [])
 
+  if (loading) {
+    return <h1>Loading...</h1>
+  }
 
-  // if (loading) {
-  //   return <h1>Loading...</h1>
-  // }
-
-  console.log(props)
   return (
     <div>
       <table className="table">
