@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import * as usersActions  from '../../actions/usersActions'
 import { connect } from 'react-redux'
@@ -6,15 +6,19 @@ import { connect } from 'react-redux'
 const Users = (props) => {
   const {users, loading, error} = props.data
   // const [users, setUsers] = useState({ loading: true, data: [], error: null})
-
   useEffect(() => {
     props.traerTodos()
   }, [])
-
+  
   if (loading) {
     return <h1>Loading...</h1>
   }
-
+  
+  if (error && !users) {
+    return <h1>ERROR...</h1>
+  }
+  
+  console.log(props)
   return (
     <div>
       <table className="table">
