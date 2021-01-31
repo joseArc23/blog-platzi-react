@@ -13,6 +13,14 @@ export const traerTodos = () => async (dispatch) => {
       }
     })
   } catch (error) {
+    dispatch({
+      type: TRAER_TODOS,
+      payload: {
+        loading: false,
+        error: error,
+        users: null,
+      }
+    })
     console.error(error)
   }
 }

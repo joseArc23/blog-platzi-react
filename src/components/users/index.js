@@ -15,7 +15,7 @@ const Users = (props) => {
   }
   
   if (error && !users) {
-    return <h1>ERROR...</h1>
+    return <h1>ERROR...{error.message}</h1>
   }
   
   console.log(props)
