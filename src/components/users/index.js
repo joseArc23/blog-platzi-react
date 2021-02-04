@@ -3,6 +3,9 @@ import React from 'react'
 import * as usersActions  from '../../actions/usersActions'
 import { connect } from 'react-redux'
 
+import Spinner from '../utils/Spinner'
+import Error from '../utils/Error'
+
 class Users extends React.Component {
   componentDidMount() {
     this.props.traerTodos()
@@ -10,14 +13,14 @@ class Users extends React.Component {
   
   render() {
     const {users, loading, error} = this.props
-    console.log(this.props)
+    // console.log(this.props)
     
     if (loading) {
-      return <h1>Loading...</h1>
+      return <Spinner />
     }
     
     if (error && !users) {
-      return <h1>ERROR...{error.message}</h1>
+      return <Error message={error.message} />
     }
     return (
       <div>
