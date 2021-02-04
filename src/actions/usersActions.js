@@ -3,8 +3,7 @@ import { GET_ALL, LOADING, ERROR } from '../types/usersTypes'
 
 export const traerTodos = () => async (dispatch) => {
   dispatch({
-    type: LOADING,
-    payload: true
+    type: LOADING
   })
   try {
     const response =  await axios.get('https://jsonplaceholder.typicode.com/users')

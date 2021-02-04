@@ -18,7 +18,7 @@ export const usersReducer = (state = INITIAL_STATE, action) => {
     case LOADING:
       return {
         ...state,
-        loading: action.payload,
+        loading: true
       }
     case ERROR:
       return {
