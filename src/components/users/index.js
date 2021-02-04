@@ -23,6 +23,7 @@ class Users extends React.Component {
     if (error && !users) {
       return <Error message={error.message} />
     }
+    
     return (
       <Table users={users} />
     )

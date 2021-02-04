@@ -7,7 +7,7 @@ const Menu = () => (
       Users
     </Link>
     <Link to="/tareas">
-      Takss
+      Tasks
     </Link>
   </nav>
 )
