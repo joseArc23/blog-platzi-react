@@ -1,51 +1,55 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import * as usersActions  from '../../actions/usersActions'
 import { connect } from 'react-redux'
 
-const Users = (props) => {
-  const {users, loading, error} = props.data
-  // const [users, setUsers] = useState({ loading: true, data: [], error: null})
-  useEffect(() => {
-    props.traerTodos()
-  }, [])
-  
-  if (loading) {
-    return <h1>Loading...</h1>
+class Users extends React.Component {
+  componentDidMount() {
+    this.props.traerTodos()
   }
   
-  if (error && !users) {
-    return <h1>ERROR...{error.message}</h1>
+  render() {
+    const {users, loading, error} = this.props
+    console.log(this.props)
+    
+    if (loading) {
+      return <h1>Loading...</h1>
+    }
+    
+    if (error && !users) {
+      return <h1>ERROR...{error.message}</h1>
+    }
+    return (
+      <div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Enlace</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map(user => (
+              <tr key={user.id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.website}</td>
+              </tr> 
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
   }
-  
-  console.log(props)
-  return (
-    <div>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Enlace</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.website}</td>
-            </tr> 
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
 }
 
 const mapStateToProps = state => {
   return {
-    data: state.usersReducer
+    users: state.usersReducer.users,
+    loading: state.usersReducer.loading,
+    error: state.usersReducer.error,
+    // data: state.usersReducer
   }
 }
 

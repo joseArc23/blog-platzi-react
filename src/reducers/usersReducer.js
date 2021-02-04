@@ -1,4 +1,4 @@
-import { TRAER_TODOS } from '../types/usersTypes'
+import { GET_ALL, LOADING, ERROR } from '../types/usersTypes'
 
 const INITIAL_STATE = {
   users: [],
@@ -6,14 +6,26 @@ const INITIAL_STATE = {
   error: null
 }
 
-export default (state = INITIAL_STATE, action) => {
+export const usersReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case TRAER_TODOS:
+    case GET_ALL:
       return {
         ...state,
-        loading: action.payload.loading,
-        error: action.payload.error,
-        users: action.payload.users,
+        users: action.payload,
+        loading: false,
+        error: null,
+      }
+    case LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      }
+    case ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false,
+        users: null,
       }
     default: return state
   }
