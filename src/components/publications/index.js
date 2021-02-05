@@ -7,11 +7,13 @@ import * as postsActions  from '../../actions/postsActions'
 
 class Publications extends React.Component {
 
-  componentDidMount() {
+  // para ordenar el orden de las peticiones
+  async componentDidMount() {
     if (!this.props.usersReducer.users.length) {
       console.log('bring then on')
-      this.props.usersTraerTodos()
+      await this.props.usersTraerTodos()
     }
+    await this.props.getPostsUser(this.props.match.params.key)
   }
 
   render() {
@@ -37,7 +39,7 @@ class Publications extends React.Component {
 
         {/* https://jsonplaceholder.typicode.com/users?id=1 */}
 
-        <p>{this.props.match.params.id}</p>
+        <p>{this.props.match.params.key}</p>
       </>
     )
   }

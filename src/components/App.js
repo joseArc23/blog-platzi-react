@@ -13,7 +13,7 @@ const App = () => (
       <div className="margin">
         <Route exact path="/" component={Users} />
         <Route exact path="/tareas" component={Tasks} />
-        <Route exact path="/publications/:id" component={Publications} />
+        <Route exact path="/publications/:key" component={Publications} />
       </div>
   </Router>
 )
