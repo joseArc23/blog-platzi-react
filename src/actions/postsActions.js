@@ -14,7 +14,7 @@ export const postsTraerTodos = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: ERROR,
-      payload: error.message
+      payload: error
     })
   }
 }
@@ -25,10 +25,17 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
   const { users } = getState().usersReducer
   const userId = users[key].id
   console.log( users)
-  const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
-  // copiamos el mismpo action para un solo usuario
-  dispatch({
-    type: GET_ALL,
-    payload: response.data
-  })
+  try {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+    // copiamos el mismpo action para un solo usuario
+    dispatch({
+      type: GET_ALL,
+      payload: response.data
+    })
+  } catch (error) {
+    dispatch({
+      type: ERROR,
+      payload: error
+    })
+  }
 }

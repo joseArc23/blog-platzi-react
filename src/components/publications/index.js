@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import * as usersActions  from '../../actions/usersActions'
 import * as postsActions  from '../../actions/postsActions'
 
+import Spinner from '../utils/Spinner'
+import Error from '../utils/Error'
+
 
 class Publications extends React.Component {
 
@@ -17,20 +20,16 @@ class Publications extends React.Component {
   }
 
   render() {
-    const {users, loading, error} = this.props.usersReducer
+    const {users, loading, error} = this.props.postsReducer
     // // console.log(this.props)
     console.log(this.props)
     
     if (loading) {
-      return (
-        <div>loading</div>
-      )
+      return <Spinner />
     }
     
     if (error && !users) {
-      return (
-        <div>error</div>
-      )
+      return <Error message={error.message}/>
     }
 
     return (
