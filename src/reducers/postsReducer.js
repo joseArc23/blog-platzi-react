@@ -1,22 +1,22 @@
-import { GET_ALL, LOADING, ERROR } from '../types/usersTypes'
+import { GET_ALL, LOADING, ERROR } from '../types/postsTypes'
 
 const INITIAL_STATE = {
-  users: [],
+  posts: [],
   loading: true,
   error: null
 }
 
-export const usersReducer = (state = INITIAL_STATE, action) => {
+export const postsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
       }
     case GET_ALL:
       return {
         ...state,
-        users: action.payload,
+        posts: action.payload,
         loading: false,
         error: null,
       }
@@ -25,8 +25,9 @@ export const usersReducer = (state = INITIAL_STATE, action) => {
         ...state,
         error: action.payload,
         loading: false,
-        users: null,
+        posts: [],
       }
+
     default: return state
   }
 }

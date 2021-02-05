@@ -2,32 +2,34 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import * as usersActions  from '../../actions/usersActions'
+import * as postsActions  from '../../actions/postsActions'
 
 
 class Publications extends React.Component {
 
   componentDidMount() {
-    if (!this.props.users.length) {
+    if (!this.props.usersReducer.users.length) {
       console.log('bring then on')
-      this.props.traerTodos()
+      this.props.usersTraerTodos()
     }
   }
 
   render() {
-    // const {users, loading, error} = this.props
+    const {users, loading, error} = this.props.usersReducer
     // // console.log(this.props)
+    console.log(this.props)
     
-    // if (loading) {
-    //   return (
-    //     <div>loading</div>
-    //   )
-    // }
+    if (loading) {
+      return (
+        <div>loading</div>
+      )
+    }
     
-    // if (error && !users) {
-    //   return (
-    //     <div>error</div>
-    //   )
-    // }
+    if (error && !users) {
+      return (
+        <div>error</div>
+      )
+    }
 
     return (
       <>
@@ -41,8 +43,16 @@ class Publications extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return state.usersReducer
+const mapStateToProps = ({ usersReducer, postsReducer }) => {
+  return {
+    usersReducer,
+    postsReducer
+  }
 }
 
-export default connect(mapStateToProps, usersActions)(Publications)
+const mapDispatchToProps = {
+  ...usersActions, // traerTodos()
+  ...postsActions, // traerReducer()
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Publications)

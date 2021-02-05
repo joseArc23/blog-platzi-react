@@ -9,12 +9,12 @@ import Error from '../utils/Error'
 
 class Users extends React.Component {
   componentDidMount() {
-    this.props.traerTodos()
+    this.props.usersTraerTodos()
   }
   
   render() {
-    const {users, loading, error} = this.props
     // console.log(this.props)
+    const {users, loading, error} = this.props
     
     if (loading) {
       return <Spinner />
@@ -31,11 +31,13 @@ class Users extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
-    users: state.usersReducer.users,
-    loading: state.usersReducer.loading,
-    error: state.usersReducer.error,
-  }
+  return state.usersReducer
+
+  // return {
+  //   users: state.usersReducer.users,
+  //   loading: state.usersReducer.loading,
+  //   error: state.usersReducer.error,
+  // }
 }
 
 export default connect(mapStateToProps, usersActions)(Users);

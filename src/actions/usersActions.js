@@ -1,12 +1,12 @@
 import axios from 'axios'
 import { GET_ALL, LOADING, ERROR } from '../types/usersTypes'
 
-export const traerTodos = () => async (dispatch) => {
+export const usersTraerTodos = () => async (dispatch) => {
   dispatch({
     type: LOADING
   })
   try {
-    const response =  await axios.get('https://jsonplaceholder.typicode.com/users')
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users')
     dispatch({
       type: GET_ALL,
       payload: response.data
