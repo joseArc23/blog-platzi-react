@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_ALL, LOADING, ERROR } from '../types/postsTypes'
+import { GET_POSTS, LOADING, ERROR } from '../types/postsTypes'
 
 export const postsTraerTodos = () => async (dispatch) => {
   dispatch({
@@ -8,7 +8,7 @@ export const postsTraerTodos = () => async (dispatch) => {
   try {
     const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
     dispatch({
-      type: GET_ALL,
+      type: GET_POSTS,
       payload: response.data
     })
   } catch (error) {
@@ -29,7 +29,7 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
     // copiamos el mismpo action para un solo usuario
     dispatch({
-      type: GET_ALL,
+      type: GET_POSTS,
       payload: response.data
     })
   } catch (error) {

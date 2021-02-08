@@ -9,11 +9,13 @@ import Error from '../utils/Error'
 
 class Users extends React.Component {
   componentDidMount() {
-    this.props.usersTraerTodos()
+    if (!this.props.users.length) {
+      this.props.usersTraerTodos()
+    }
   }
   
   render() {
-    // console.log(this.props)
+    console.log(this.props)
     const {users, loading, error} = this.props
     
     if (loading) {
