@@ -21,9 +21,7 @@ class Publications extends React.Component {
 
   render() {
     const {users, loading, error} = this.props.postsReducer
-    // // console.log(this.props)
-    console.log(this.props)
-    
+    console.log(this.props)    
     if (loading) {
       return <Spinner />
     }

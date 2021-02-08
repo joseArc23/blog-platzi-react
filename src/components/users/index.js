@@ -15,7 +15,7 @@ class Users extends React.Component {
   }
   
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const {users, loading, error} = this.props
     
     if (loading) {
