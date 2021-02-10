@@ -18,13 +18,14 @@ class Users extends React.Component {
     // console.log(this.props)
     const {users, loading, error} = this.props
     
+    if (error && !users) {
+      return <Error message={error.message} />
+    }
+    
     if (loading) {
       return <Spinner />
     }
     
-    if (error && !users) {
-      return <Error message={error.message} />
-    }
     
     return (
       <Table users={users} />
