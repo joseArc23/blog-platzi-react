@@ -6,7 +6,7 @@ import * as postsActions  from '../../actions/postsActions'
 
 import Spinner from '../utils/Spinner'
 import Error from '../utils/Error'
-// import putPosts from '../publications/putPosts'
+import putPosts from '../publications/putPosts'
 
 class Publications extends React.Component {
 
@@ -32,19 +32,25 @@ class Publications extends React.Component {
   }
 
   render() {
-    const {users, loading, error} = this.props.usersReducer
+    const {
+      usersReducer,
+      match: { params: { key } },
+    } = this.props
+
     console.log(this.props)    
-    if (loading) {
+    // en caso de que users no exista
+    if (!usersReducer.users.length || usersReducer.loading) {
       return <Spinner />
     }
     
-    if (error && !users) {
-      return <Error message={error.message}/>
+    if (usersReducer.error && !usersReducer.users) {
+      return <Error message={usersReducer.error.message}/>
     }
     
+    const name = usersReducer.users[key].name
     return (
       <>
-        <h1>Publicaciones de </h1>
+        <h1>Publicaciones de {name} </h1>
 
         {/* https://jsonplaceholder.typicode.com/users?id=1 */}
 
