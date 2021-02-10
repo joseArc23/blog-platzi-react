@@ -38,6 +38,12 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
       response.data,
     ]
 
+    // copiamos el mismpo action para un solo usuario
+    dispatch({
+      type: GET_POSTS,
+      payload: updatedPosts
+    })
+    
     // cuando tengamos un post será index 0
     const posts_key = updatedPosts.length - 1
     // creamos una copia que solo llega al primer nivel
@@ -47,21 +53,17 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
       ...users[key],
       posts_key,
     }
-
+    
     dispatch({
       type: USERS_GET_ALL,
       payload: updatedUsers
     })
-
-    // copiamos el mismpo action para un solo usuario
-    dispatch({
-      type: GET_POSTS,
-      payload: updatedPosts
-    })
+    
   } catch (error) {
+    console.log(error.message)
     dispatch({
       type: ERROR,
-      payload: error
+      payload: 'Publicaciones no disponibles'
     })
   }
 }
