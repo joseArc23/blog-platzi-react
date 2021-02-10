@@ -6,21 +6,33 @@ import * as postsActions  from '../../actions/postsActions'
 
 import Spinner from '../utils/Spinner'
 import Error from '../utils/Error'
-
+// import putPosts from '../publications/putPosts'
 
 class Publications extends React.Component {
 
   // para ordenar el orden de las peticiones
   async componentDidMount() {
+    // no desestructuramos usersRedurers es un estado ya que son datos que pueden cambiar 
+    const { usersTraerTodos, getPostsUser, match: { params: { key } } } = this.props
+
     if (!this.props.usersReducer.users.length) {
-      console.log('bring then on')
-      await this.props.usersTraerTodos()
+      await usersTraerTodos()
     }
-    await this.props.getPostsUser(this.props.match.params.key)
+
+    // en caso de un error aqui debemos evitar que se ejecuta la siguiente condicional
+    console.log(this.props.usersReducer)
+    if (this.props.usersReducer.error) {
+      return
+    }
+
+    // buscamos si el user ya tiene el posts_key
+    if (!('posts_key' in this.props.usersReducer.users[key])) {
+      await getPostsUser(key)
+    }
   }
 
   render() {
-    const {users, loading, error} = this.props.postsReducer
+    const {users, loading, error} = this.props.usersReducer
     console.log(this.props)    
     if (loading) {
       return <Spinner />
@@ -29,7 +41,7 @@ class Publications extends React.Component {
     if (error && !users) {
       return <Error message={error.message}/>
     }
-
+    
     return (
       <>
         <h1>Publicaciones de </h1>
