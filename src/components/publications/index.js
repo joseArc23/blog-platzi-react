@@ -4,6 +4,7 @@ import React from 'react'
 import * as usersActions  from '../../actions/usersActions'
 import * as postsActions  from '../../actions/postsActions'
 
+import Comments from './Comments'
 import Spinner from '../utils/Spinner'
 import Error from '../utils/Error'
 
@@ -63,7 +64,7 @@ class Publications extends React.Component {
 			<div
 				key={posts.id}
 				className='pub_title'
-				onClick={ () => this.props.openClose(posts_key, com_key) }
+				onClick={ () => this.props.showComments(posts_key, com_key, comments) }
 			>
 				<h2>
 					{ posts.title }
@@ -72,11 +73,17 @@ class Publications extends React.Component {
 					{ posts.body }
 				</h3>
         {
-          posts.open ? 'Open' : 'Closed'
+          posts.open ? <Comments /> : ''
         }
 			</div>
 		))
   )
+
+  showComments = (posts_key, com_key, comments) => {
+    this.props.openClose(posts_key, com_key)
+    this.props.bringComments(posts_key, com_key)
+    // en code que no tenga comments voy a buscar
+  }
 
 
   render() {

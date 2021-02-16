@@ -79,3 +79,7 @@ export const openClose = (posts_key, com_key) => (dispatch, getState) => {
     payload: updatedPosts
   })
 }
+
+export const bringComments = (posts_key, com_key) => (dispatch, getState) {
+  
+}
