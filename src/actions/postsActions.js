@@ -15,9 +15,16 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
 
   try {
     const response = await axios.get(`https://jsonplaceholder.typicode.com/posts?userId=${userId}`)
+    
+    const newOnes = response.data.map((post) => ({
+      ...post,
+      comments: [],
+      open: false
+    }))
+    
     const updatedPosts = [
       ...posts,
-      response.data,
+      newOnes
     ]
 
     // copiamos el mismpo action para un solo usuario
@@ -48,4 +55,8 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
       payload: 'Publicaciones no disponibles'
     })
   }
+}
+
+export const openClose = (posts_key, com_key) => (dispatch) => {
+  console.log(posts_key, com_key)
 }

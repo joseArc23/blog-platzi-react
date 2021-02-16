@@ -55,11 +55,15 @@ class Publications extends React.Component {
 		if (!('posts_key' in users[key])) return;
 
 		const { posts_key } = users[key];
-		return posts[posts_key].map((posts) => (
+		return this.showInfo(posts[posts_key], posts_key)
+  }
+
+  showInfo = ( posts, posts_key) => (
+    posts.map((posts, com_key) => (
 			<div
 				key={posts.id}
 				className='pub_title'
-				onClick={ ()=>alert(posts.id) }
+				onClick={ () => this.props.openClose(posts_key, com_key) }
 			>
 				<h2>
 					{ posts.title }
@@ -68,8 +72,9 @@ class Publications extends React.Component {
 					{ posts.body }
 				</h3>
 			</div>
-		));
-  }
+		))
+  )
+
 
   render() {
     const {
@@ -106,8 +111,7 @@ const mapStateToProps = ({ usersReducer, postsReducer }) => {
 }
 
 const mapDispatchToProps = {
-  ...usersActions, // traerTodos()
-  ...postsActions, // traerReducer()
+  ...usersActions, // usersTraerTodos()
+  ...postsActions, // openClose() getPostsUser()
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(Publications)
