@@ -1,5 +1,5 @@
 import React from 'react'
-  import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 import * as usersActions  from '../../actions/usersActions'
 import * as postsActions  from '../../actions/postsActions'
@@ -20,7 +20,7 @@ class Publications extends React.Component {
     }
 
     // en caso de un error aqui debemos evitar que se ejecuta la siguiente condicional
-    console.log(this.props.usersReducer)
+    // console.log(this.props.usersReducer)
     if (this.props.usersReducer.error) {
       return
     }
@@ -39,7 +39,7 @@ class Publications extends React.Component {
 			postsReducer: { posts },
 			match: { params: { key } }
 		} = this.props;
-
+    console.log(this.props)
     // validamos 
     if (!users.length) return;
     // en caso de error
@@ -54,24 +54,23 @@ class Publications extends React.Component {
 		if (!posts.length) return;
     // si no tenemos post_key del users no hacer nada
 		if (!('posts_key' in users[key])) return;
-
 		const { posts_key } = users[key];
 		return this.showInfo(posts[posts_key], posts_key)
   }
 
-  showInfo = ( posts, posts_key) => (
+  showInfo = (posts, posts_key) => (
     posts.map((posts, com_key) => (
 			<div
 				key={posts.id}
 				className='pub_title'
-				onClick={ () => this.props.showComments(posts_key, com_key, comments) }
+				onClick={ () => this.showComments(posts_key, com_key, posts.comments) }
 			>
 				<h2>
 					{ posts.title }
 				</h2>
-				<h3>
+				<p>
 					{ posts.body }
-				</h3>
+				</p>
         {
           posts.open ? <Comments /> : ''
         }
@@ -80,9 +79,12 @@ class Publications extends React.Component {
   )
 
   showComments = (posts_key, com_key, comments) => {
+    // console.log('comments:', comments)
     this.props.openClose(posts_key, com_key)
-    this.props.bringComments(posts_key, com_key)
-    // en code que no tenga comments voy a buscar
+    if (!comments.length) {
+      this.props.bringComments(posts_key, com_key)
+      // en code que no tenga comments voy a buscar
+    }
   }
 
 

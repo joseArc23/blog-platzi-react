@@ -80,6 +80,23 @@ export const openClose = (posts_key, com_key) => (dispatch, getState) => {
   })
 }
 
-export const bringComments = (posts_key, com_key) => (dispatch, getState) {
+export const bringComments = (posts_key, com_key) => async(dispatch, getState) => {
+  const { posts } = getState().postsReducer
+  const selected = posts[posts_key][com_key]
+  // le vamos a añadir los comentarios
+  const response = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`)
+  const updated = {
+    ...selected,
+    comments: response.data
+  }
   
+  const updatedPosts = [...posts]
+  // entramos al nivel del posts
+  updatedPosts[posts_key] = [...posts[posts_key]]
+  updatedPosts[posts_key][com_key] = updated
+  // post por usuario
+  dispatch({
+    type: UPDATE,
+    payload: updatedPosts
+  })
 }
