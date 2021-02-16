@@ -71,6 +71,9 @@ class Publications extends React.Component {
 				<h3>
 					{ posts.body }
 				</h3>
+        {
+          posts.open ? 'Open' : 'Closed'
+        }
 			</div>
 		))
   )

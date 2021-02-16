@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { GET_POSTS, LOADING, ERROR } from '../types/postsTypes'
+import { UPDATE, LOADING, ERROR } from '../types/postsTypes'
 import { GET_ALL as USERS_GET_ALL } from '../types/usersTypes'
 
 export const getPostsUser = (key) => async (dispatch, getState) => {
@@ -29,7 +29,7 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
 
     // copiamos el mismpo action para un solo usuario
     dispatch({
-      type: GET_POSTS,
+      type: UPDATE,
       payload: updatedPosts
     })
     
@@ -57,6 +57,25 @@ export const getPostsUser = (key) => async (dispatch, getState) => {
   }
 }
 
-export const openClose = (posts_key, com_key) => (dispatch) => {
-  console.log(posts_key, com_key)
+export const openClose = (posts_key, com_key) => (dispatch, getState) => {
+  // console.log(posts_key, com_key)
+  const { posts } = getState().postsReducer
+  // selecionamos al key
+  const selected = posts[posts_key][com_key]
+  // la pub actualizada
+  const updated = {
+    ...selected,
+    open: !selected.open
+  }
+  // posts es un arreglo de arreglos inmuabilidad le decimos nivel por nivel que
+  // posts estamos actualizando
+  const updatedPosts = [...posts]
+  // entramos al nivel del posts
+  updatedPosts[posts_key] = [...posts[posts_key]]
+  updatedPosts[posts_key][com_key] = updated
+  // post por usuario
+  dispatch({
+    type: UPDATE,
+    payload: updatedPosts
+  })
 }
