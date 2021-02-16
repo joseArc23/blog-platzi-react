@@ -2,24 +2,6 @@ import axios from 'axios'
 import { GET_POSTS, LOADING, ERROR } from '../types/postsTypes'
 import { GET_ALL as USERS_GET_ALL } from '../types/usersTypes'
 
-// export const postsTraerTodos = () => async (dispatch) => {
-//   dispatch({
-//     type: LOADING
-//   })
-//   try {
-//     const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-//     dispatch({
-//       type: GET_POSTS,
-//       payload: response.data
-//     })
-//   } catch (error) {
-//     dispatch({
-//       type: ERROR,
-//       payload: error
-//     })
-//   }
-// }
-
 export const getPostsUser = (key) => async (dispatch, getState) => {
   dispatch({
     type: LOADING

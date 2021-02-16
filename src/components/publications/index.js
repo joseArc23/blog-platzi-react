@@ -47,7 +47,7 @@ class Publications extends React.Component {
 			return <Spinner />;
 		}
 		if (postsReducer.error) {
-			return <Error mensaje={postsReducer.error} />
+			return <Error message={postsReducer.error} />
 		}
     // en caso de que no haya posts, estara solicitandolos
 		if (!posts.length) return;
