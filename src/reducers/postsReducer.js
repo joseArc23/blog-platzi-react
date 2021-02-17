@@ -1,9 +1,10 @@
-import { UPDATE, LOADING, ERROR } from '../types/postsTypes'
-
+import { UPDATE, LOADING, ERROR, COM_ERROR, COM_LOADING, COM_UPDATE } from '../types/postsTypes'
 const INITIAL_STATE = {
   posts: [],
   loading: true,
-  error: null
+  error: null,
+  com_loading: true,
+  com_error: null
 }
 
 export const postsReducer = (state = INITIAL_STATE, action) => {
@@ -28,6 +29,26 @@ export const postsReducer = (state = INITIAL_STATE, action) => {
         posts: [],
       }
 
+    case COM_LOADING:
+      return {
+        ...state,
+        com_loading: true,
+      }
+
+    case COM_UPDATE:
+      return {
+        ...state,
+        posts: action.payload,
+        com_loading: false,
+        com_error: null,
+      }
+
+    case COM_ERROR:
+      return {
+        ...state,
+        com_error: action.payload,
+        com_loading: false,
+      }
     default: return state
   }
 }

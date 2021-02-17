@@ -1,3 +1,6 @@
 export const UPDATE = 'posts_get'
 export const LOADING = 'posts_loading'
 export const ERROR = 'posts_error'
+export const COM_LOADING = 'com_loading'
+export const COM_ERROR = 'com_error'
+export const COM_UPDATE = 'com_get'

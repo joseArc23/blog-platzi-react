@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { UPDATE, LOADING, ERROR } from '../types/postsTypes'
+import { UPDATE, LOADING, ERROR, COM_ERROR, COM_LOADING, COM_UPDATE } from '../types/postsTypes'
 import { GET_ALL as USERS_GET_ALL } from '../types/usersTypes'
 
 export const getPostsUser = (key) => async (dispatch, getState) => {
@@ -81,22 +81,34 @@ export const openClose = (posts_key, com_key) => (dispatch, getState) => {
 }
 
 export const bringComments = (posts_key, com_key) => async(dispatch, getState) => {
+  dispatch({
+    type: COM_LOADING
+  })
   const { posts } = getState().postsReducer
   const selected = posts[posts_key][com_key]
   // le vamos a añadir los comentarios
-  const response = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`)
-  const updated = {
-    ...selected,
-    comments: response.data
+
+  try {
+    const response = await axios.get(`https://jsonplaceholder.typicode.com/comments?postId=${selected.id}`)
+    const updated = {
+      ...selected,
+      comments: response.data
+    }
+    
+    const updatedPosts = [...posts]
+    // entramos al nivel del posts
+    updatedPosts[posts_key] = [...posts[posts_key]]
+    updatedPosts[posts_key][com_key] = updated
+    // post por usuario
+    dispatch({
+      type: COM_UPDATE,
+      payload: updatedPosts
+    })
+  } catch (error) {
+    console.log(error.message)
+    dispatch({
+      type: COM_ERROR,
+      payload: 'Comments not available now...'
+    })
   }
-  
-  const updatedPosts = [...posts]
-  // entramos al nivel del posts
-  updatedPosts[posts_key] = [...posts[posts_key]]
-  updatedPosts[posts_key][com_key] = updated
-  // post por usuario
-  dispatch({
-    type: UPDATE,
-    payload: updatedPosts
-  })
 }

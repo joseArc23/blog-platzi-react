@@ -39,7 +39,7 @@ class Publications extends React.Component {
 			postsReducer: { posts },
 			match: { params: { key } }
 		} = this.props;
-    console.log(this.props)
+    // console.log(this.props)
     // validamos 
     if (!users.length) return;
     // en caso de error
@@ -72,7 +72,7 @@ class Publications extends React.Component {
 					{ posts.body }
 				</p>
         {
-          posts.open ? <Comments /> : ''
+          posts.open ? <Comments comments={posts.comments} /> : ''
         }
 			</div>
 		))
@@ -94,7 +94,7 @@ class Publications extends React.Component {
       match: { params: { key } },
     } = this.props
 
-    console.log(this.props)    
+    // console.log(this.props)    
     // en caso de que users no exista
     if (usersReducer.error && !usersReducer.users) {
       return <Error message={usersReducer.error.message}/>
