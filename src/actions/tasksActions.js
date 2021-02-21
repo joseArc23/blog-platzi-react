@@ -8,6 +8,17 @@ export const tasksTraerTodos = () => async (dispatch) => {
   try {
     // traemos las tareas de la api
     const response = await axios.get('https://jsonplaceholder.typicode.com/todos')
+    
+    const tasks = {}
+    response.data.map(tsk => (
+      tasks[tsk.userId] = {
+        ...tasks[tsk.userId],
+        [tsk.id]: {
+          ...tsk
+        }
+      }
+    ))
+
     dispatch({
       type: GET_TASKS,
       payload: response.data
