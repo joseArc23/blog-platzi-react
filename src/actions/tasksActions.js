@@ -21,13 +21,13 @@ export const tasksTraerTodos = () => async (dispatch) => {
 
     dispatch({
       type: GET_TASKS,
-      payload: response.data
+      payload: tasks
     })
   } catch (error) {
+    console.log('Error:', error.message)
     dispatch({
       type: ERROR,
-      payload: error
+      payload: 'Tasks not available now, try later...'
     })
-    console.error(error)
   }
 }
