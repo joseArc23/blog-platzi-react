@@ -42,6 +42,14 @@ export const tasksReducer = (state = INITIAL_STATE, action) => {
         title: action.payload
       }
 
+    case 'added':
+      return {
+        ...state,
+        tasks: {},
+        loading: false,
+        error: null
+      }
+      
     default: return state
   }
 }

@@ -13,6 +13,17 @@ class Save extends React.Component {
     this.props.changeTitle(event.target.value)
   }
 
+  save = () => {
+    const {user_id, title, add } = this.props
+    const new_task = {
+      userId: user_id,
+      title: title,
+      completed: false
+    }
+
+    add(new_task)
+  }
+
   render() {
     console.log(this.props)
     return (
@@ -32,7 +43,11 @@ class Save extends React.Component {
           onChange={this.changeTitle}
         />
         <br/><br/>
-        <button>Save</button>
+        <button
+          onClick={this.save}
+        >
+          Save
+        </button>
       </div>
     )
   }
