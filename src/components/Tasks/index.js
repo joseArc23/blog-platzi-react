@@ -55,7 +55,6 @@ class index extends React.Component {
     ))
   }
 
-  
   render() {
     return (
       <div>

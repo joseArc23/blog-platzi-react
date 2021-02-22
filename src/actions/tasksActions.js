@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { GET_TASKS, LOADING, ERROR } from '../types/tasksTypes'
+import { CHANGE_USER_ID, CHANGE_TITLE, ADDED } from '../types/tasksTypes'
 
 export const tasksTraerTodos = () => async (dispatch) => {
   dispatch({
@@ -34,14 +35,14 @@ export const tasksTraerTodos = () => async (dispatch) => {
 
 export const changeUserId = (user_id) => (dispatch) => {
   dispatch({
-    type: 'change_user_id',
+    type: CHANGE_USER_ID,
     payload: user_id
   })
 }
 
 export const changeTitle = (title) => (dispatch) => {
   dispatch({
-    type: 'change_title',
+    type: CHANGE_TITLE,
     payload: title
   })
 }
@@ -56,7 +57,7 @@ export const add = (new_task) => async (dispatch) => {
     console.log(response.data)
     // creamos el dispatch pero sin payload ya que se guardo en la base de datos
     dispatch({
-      type: 'added'
+      type: ADDED
     })
 
   } catch (error) {

@@ -1,8 +1,8 @@
 import { GET_TASKS, LOADING, ERROR } from '../types/tasksTypes'
-
+import { CHANGE_USER_ID, CHANGE_TITLE, ADDED } from '../types/tasksTypes'
 const INITIAL_STATE = {
   tasks: {},
-  loading: true,
+  loading: false,
   error: null,
   user_id: '',
   title: ''
@@ -30,26 +30,26 @@ export const tasksReducer = (state = INITIAL_STATE, action) => {
         tasks: null,
       }
 
-    case 'change_user_id':
+    case CHANGE_USER_ID:
       return {
         ...state,
         user_id: action.payload
       }
     
-    case 'change_title':
+    case CHANGE_TITLE:
       return {
         ...state,
         title: action.payload
       }
 
-    case 'added':
+    case ADDED:
       return {
         ...state,
         tasks: {},
         loading: false,
         error: null
       }
-      
+
     default: return state
   }
 }
