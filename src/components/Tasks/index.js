@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
-
 import { Link } from 'react-router-dom'
 
-// import { tasksTraerTodos } from '../../actions/tasksActions'
+// import { tasksTraerTodos } from '../../actions/tasksActions' de esta forma se ejecuta antes del componentDidMount
 import * as tasksActions from '../../actions/tasksActions'
 import Spinner from '../utils/Spinner'
 import Fatal from '../utils/Fatal'
