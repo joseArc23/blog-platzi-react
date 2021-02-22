@@ -1,6 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+import { Link } from 'react-router-dom'
+
 // import { tasksTraerTodos } from '../../actions/tasksActions'
 import * as tasksActions from '../../actions/tasksActions'
 import Spinner from '../utils/Spinner'
@@ -46,17 +48,23 @@ class index extends React.Component {
     // el input estara marcado dependiendo del tks_id 
     return Object.keys(per_user).map((tsk_id) => (
       <div key={tsk_id}>
-        <input type="checkbox" defaultChecked={per_user[tsk_id].completed} />
-        {per_user[tsk_id].title}
+        <label>
+          <input type="checkbox" defaultChecked={per_user[tsk_id].completed} />
+          {per_user[tsk_id].title}
+        </label>
       </div>
     ))
   }
 
   
   render() {
-    console.log(this.props)
     return (
       <div>
+        <Link to='/tasks/save'>
+          <button>
+            Agregar
+          </button>
+        </Link>
         { this.showContent() }
       </div>
     )
