@@ -5,7 +5,8 @@ const INITIAL_STATE = {
   loading: false,
   error: null,
   user_id: '',
-  title: ''
+  title: '',
+  regresar: false
 }
 
 export const tasksReducer = (state = INITIAL_STATE, action) => {
@@ -21,6 +22,7 @@ export const tasksReducer = (state = INITIAL_STATE, action) => {
         tasks: action.payload,
         loading: false,
         error: null,
+        regresar: false
       }
     case ERROR:
       return {
@@ -47,7 +49,10 @@ export const tasksReducer = (state = INITIAL_STATE, action) => {
         ...state,
         tasks: {},
         loading: false,
-        error: null
+        error: null,
+        regresar: true,
+        user_id: '',
+        title: ''
       }
 
     default: return state
