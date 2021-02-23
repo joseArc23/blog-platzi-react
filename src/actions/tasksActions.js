@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { GET_TASKS, LOADING, ERROR } from '../types/tasksTypes'
-import { CHANGE_USER_ID, CHANGE_TITLE, SAVED, UPDATE } from '../types/tasksTypes'
+import { CHANGE_USER_ID, CHANGE_TITLE, SAVED, UPDATE, CLEAN } from '../types/tasksTypes'
 
 export const tasksTraerTodos = () => async (dispatch) => {
   dispatch({
@@ -53,8 +53,7 @@ export const add = (new_task) => async (dispatch) => {
   })
 
   try {
-    const response = await axios.post('https://jsonplaceholder.typicode.com/todos', new_task)
-    console.log(response.data)
+    await axios.post('https://jsonplaceholder.typicode.com/todos', new_task)
     // creamos el dispatch pero sin payload ya que se guardo en la base de datos
     dispatch({
       type: SAVED
@@ -75,8 +74,7 @@ export const edit = (task_edited) => async (dispatch) => {
   })
 
   try {
-    const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${task_edited.id}`, task_edited)
-    console.log(response.data)
+    await axios.put(`https://jsonplaceholder.typicode.com/todos/${task_edited.id}`, task_edited)
     // creamos el dispatch pero sin payload ya que se guardo en la base de datos
     dispatch({
       type: SAVED
@@ -120,8 +118,7 @@ export const eliminar = (tsk_id) => async (dispatch) => {
     type: LOADING
   })
   try {
-    const response = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${tsk_id}`)
-    console.log(response)
+    await axios.delete(`https://jsonplaceholder.typicode.com/todos/${tsk_id}`)
     // usamos traer todas ya que necesitaremos todas las tareas de nuevo
     // asi veremos cual eliminamos
     dispatch({
@@ -135,4 +132,10 @@ export const eliminar = (tsk_id) => async (dispatch) => {
       payload: 'Service not available'
     })
   }
+}
+
+export const cleanForm = () => (dispatch) => {
+  dispatch({
+    type: CLEAN
+  })
 }

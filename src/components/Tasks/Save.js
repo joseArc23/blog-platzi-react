@@ -13,13 +13,17 @@ class Save extends React.Component {
       tasks,
       changeUserId,
       changeTitle,
+      cleanForm,
     } = this.props
     
-    console.log(user_id, tsk_id)
+    // console.log(user_id, tsk_id)
     if (user_id && tsk_id) {
       const task = tasks[user_id][tsk_id]
       changeUserId(task.userId)
       changeTitle(task.title)
+    } else {
+      // limpamos el formulario caso: nos arrepentimos de editar un elemento
+      cleanForm()
     }
   }
 
@@ -78,7 +82,7 @@ class Save extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div>
         {this.props.regresar ? <Redirect to='/tasks' /> : '' }

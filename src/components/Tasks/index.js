@@ -17,8 +17,9 @@ class index extends React.Component {
 
   // en caso de que se hayan actualizado
   componentDidUpdate() {
-    if (!Object.keys(this.props.tasks).length) {
-      this.props.tasksTraerTodos()
+    const { tasks, loading, tasksTraerTodos } = this.props
+    if (!Object.keys(tasks).length && !loading) {
+      tasksTraerTodos()
     }
   }
 
@@ -78,7 +79,6 @@ class index extends React.Component {
   }
 
   render() {
-    console.log(this.tasks)
     return (
       <div>
         <Link to='/tasks/save'>
