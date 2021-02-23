@@ -1,5 +1,5 @@
 import { GET_TASKS, LOADING, ERROR } from '../types/tasksTypes'
-import { CHANGE_USER_ID, CHANGE_TITLE, ADDED } from '../types/tasksTypes'
+import { CHANGE_USER_ID, CHANGE_TITLE, SAVED } from '../types/tasksTypes'
 const INITIAL_STATE = {
   tasks: {},
   loading: false,
@@ -44,7 +44,7 @@ export const tasksReducer = (state = INITIAL_STATE, action) => {
         title: action.payload
       }
 
-    case ADDED:
+    case SAVED:
       return {
         ...state,
         tasks: {},

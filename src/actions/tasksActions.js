@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { GET_TASKS, LOADING, ERROR } from '../types/tasksTypes'
-import { CHANGE_USER_ID, CHANGE_TITLE, ADDED } from '../types/tasksTypes'
+import { CHANGE_USER_ID, CHANGE_TITLE, SAVED } from '../types/tasksTypes'
 
 export const tasksTraerTodos = () => async (dispatch) => {
   dispatch({
@@ -57,7 +57,7 @@ export const add = (new_task) => async (dispatch) => {
     console.log(response.data)
     // creamos el dispatch pero sin payload ya que se guardo en la base de datos
     dispatch({
-      type: ADDED
+      type: SAVED
     })
 
   } catch (error) {
@@ -69,6 +69,24 @@ export const add = (new_task) => async (dispatch) => {
   }
 }
 
-export const edit = (task_edited) => (dispatch) => {
-  console.log(task_edited)
+export const edit = (task_edited) => async (dispatch) => {
+  dispatch({
+    type: LOADING
+  })
+
+  try {
+    const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${task_edited.id}`, task_edited)
+    console.log(response.data)
+    // creamos el dispatch pero sin payload ya que se guardo en la base de datos
+    dispatch({
+      type: SAVED
+    })
+
+  } catch (error) {
+    console.error(error.message)
+    dispatch({
+      type: ERROR,
+      payload: 'Try later'
+    })
+  }
 }
