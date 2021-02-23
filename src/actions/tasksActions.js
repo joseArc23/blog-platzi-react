@@ -114,3 +114,25 @@ export const changeCheckbox = (user_id, tsk_id) => (dispatch, getState) => {
     payload: updated
   })
 }
+
+export const eliminar = (tsk_id) => async (dispatch) => {
+  dispatch({
+    type: LOADING
+  })
+  try {
+    const response = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${tsk_id}`)
+    console.log(response)
+    // usamos traer todas ya que necesitaremos todas las tareas de nuevo
+    // asi veremos cual eliminamos
+    dispatch({
+      type: GET_TASKS,
+      payload: {}
+    })
+  } catch (error) {
+    console.error(error.message)
+    dispatch({
+      type: ERROR,
+      payload: 'Service not available'
+    })
+  }
+}

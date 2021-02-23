@@ -15,6 +15,13 @@ class index extends React.Component {
     }
   }
 
+  // en caso de que se hayan actualizado
+  componentDidUpdate() {
+    if (!Object.keys(this.props.tasks).length) {
+      this.props.tasksTraerTodos()
+    }
+  }
+
   showContent = () => {
     const { tasks, loading, error } = this.props
     if (loading) {
@@ -38,7 +45,7 @@ class index extends React.Component {
   }
 
   putTasks = (user_id) => {
-    const { tasks, changeCheckbox } = this.props
+    const { tasks, changeCheckbox, eliminar } = this.props
     // traera las tareas de un solo usuario
     const per_user = {
       ...tasks[user_id]
@@ -60,12 +67,18 @@ class index extends React.Component {
             Edit
           </Link>
         </button>
-        <button className="m_left">Delete</button>
+        <button
+          className="m_left"
+          onClick={() => eliminar(tsk_id)}
+        >
+          Delete
+        </button>
       </div>
     ))
   }
 
   render() {
+    console.log(this.tasks)
     return (
       <div>
         <Link to='/tasks/save'>
