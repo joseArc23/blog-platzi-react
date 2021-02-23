@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { GET_TASKS, LOADING, ERROR } from '../types/tasksTypes'
-import { CHANGE_USER_ID, CHANGE_TITLE, SAVED } from '../types/tasksTypes'
+import { CHANGE_USER_ID, CHANGE_TITLE, SAVED, UPDATE } from '../types/tasksTypes'
 
 export const tasksTraerTodos = () => async (dispatch) => {
   dispatch({
@@ -89,4 +89,28 @@ export const edit = (task_edited) => async (dispatch) => {
       payload: 'Try later'
     })
   }
+}
+
+export const changeCheckbox = (user_id, tsk_id) => (dispatch, getState) => {
+  console.log(getState().tasksReducer)
+  // extraemos las taresa del state 
+  const { tasks } = getState().tasksReducer
+  const selected = tasks[user_id][tsk_id]
+
+  // Unmutabilidad, es la unica manera correcta sin librerias
+  const updated = {
+    ...tasks,
+  }
+  updated[user_id] = {
+    ...tasks[user_id]
+  }
+  updated[user_id][tsk_id] = {
+    ...tasks[user_id][tsk_id],
+    completed: !selected.completed
+  }
+
+  dispatch({
+    type: UPDATE,
+    payload: updated
+  })
 }

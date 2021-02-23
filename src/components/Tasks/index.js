@@ -38,7 +38,7 @@ class index extends React.Component {
   }
 
   putTasks = (user_id) => {
-    const { tasks } = this.props
+    const { tasks, changeCheckbox } = this.props
     // traera las tareas de un solo usuario
     const per_user = {
       ...tasks[user_id]
@@ -48,7 +48,11 @@ class index extends React.Component {
     return Object.keys(per_user).map((tsk_id) => (
       <div key={tsk_id}>
         <label>
-          <input type="checkbox" defaultChecked={per_user[tsk_id].completed} />
+          <input
+            type="checkbox"
+            defaultChecked={per_user[tsk_id].completed}
+            onChange={() => changeCheckbox(user_id, tsk_id)}
+          />
           {per_user[tsk_id].title}
         </label>
         <button className="m_left">
