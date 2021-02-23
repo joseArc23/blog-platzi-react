@@ -6,7 +6,7 @@ const Menu = () => (
     <Link to="/">
       Users
     </Link>
-    <Link to="/tareas">
+    <Link to="/tasks">
       Tasks
     </Link>
   </nav>

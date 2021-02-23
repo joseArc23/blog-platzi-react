@@ -7,6 +7,21 @@ import Spinner from '../utils/Spinner'
 import Fatal from '../utils/Fatal'
 
 class Save extends React.Component {
+  componentDidMount() {
+    const {
+      match: { params: { user_id, tsk_id }},
+      tasks,
+      changeUserId,
+      changeTitle,
+    } = this.props
+    
+    console.log(user_id, tsk_id)
+    if (user_id && tsk_id) {
+      const task = tasks[user_id][tsk_id]
+      changeUserId(task.userId)
+      changeTitle(task.title)
+    }
+  }
 
   changeUserId = (event) => {
     this.props.changeUserId(event.target.value)
@@ -17,14 +32,32 @@ class Save extends React.Component {
   }
 
   save = () => {
-    const {user_id, title, add } = this.props
+    const {
+      match: { params: { user_id, tsk_id }},
+      tasks,
+      // user_id, // ya no es necesario
+      title,
+      add,
+      edit
+    } = this.props
+
     const new_task = {
       userId: user_id,
       title: title,
       completed: false
     }
 
-    add(new_task)
+    if (user_id && tsk_id) {
+      const task = tasks[user_id][tsk_id]
+      const task_edited = {
+        ...new_task,
+        completed: task.completed,
+        id: task.id
+      }
+      edit(task_edited)
+    } else {
+      add(new_task)
+    }
   }
 
   disable = () => {
@@ -48,7 +81,7 @@ class Save extends React.Component {
     console.log(this.props)
     return (
       <div>
-        {this.props.regresar ? <Redirect to='/tareas' /> : '' }
+        {this.props.regresar ? <Redirect to='/tasks' /> : '' }
         <h1>Save Task</h1>
         User id:
         <input
@@ -69,7 +102,8 @@ class Save extends React.Component {
           disabled={this.disable()}
           // disabled={!this.props.user_id && !this.props.title} // funciona, pero apensa uno cambie ya se habilita
         >
-          Save
+          {/* Save */}
+          {this.props.match.params.user_id ? 'Edit' : 'Save'}
         </button>
         
         {this.showActionResult()}

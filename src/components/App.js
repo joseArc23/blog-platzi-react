@@ -12,9 +12,10 @@ const App = () => (
       <Menu />
       <div className="margin">
         <Route exact path='/' component={Users} />
-        <Route exact path='/tareas' component={Tasks} />
+        <Route exact path='/tasks' component={Tasks} />
         <Route exact path='/publications/:key' component={Publications} />
         <Route exact path='/tasks/save' component={SaveTask}  />
+        <Route exact path='/tasks/save/:user_id/:tsk_id' component={SaveTask}  />
       </div>
   </Router>
 )

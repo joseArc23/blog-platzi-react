@@ -51,6 +51,12 @@ class index extends React.Component {
           <input type="checkbox" defaultChecked={per_user[tsk_id].completed} />
           {per_user[tsk_id].title}
         </label>
+        <button className="m_left">
+          <Link to={`/tasks/save/${user_id}/${tsk_id}`}>
+            Edit
+          </Link>
+        </button>
+        <button className="m_left">Delete</button>
       </div>
     ))
   }

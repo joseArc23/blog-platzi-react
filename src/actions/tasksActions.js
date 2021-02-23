@@ -68,3 +68,7 @@ export const add = (new_task) => async (dispatch) => {
     })
   }
 }
+
+export const edit = (task_edited) => (dispatch) => {
+  console.log(task_edited)
+}
